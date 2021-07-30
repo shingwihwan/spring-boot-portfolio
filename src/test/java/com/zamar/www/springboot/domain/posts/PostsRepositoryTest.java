@@ -25,7 +25,7 @@ public class PostsRepositoryTest {
     }
 
     @Test
-    public void 게시글저장_불러오기(){
+    public void 게시판저장글_불러오기(){
         //given
         String title = "게시글 제목";
         String content = "게시글 내용";
@@ -35,6 +35,7 @@ public class PostsRepositoryTest {
                 .content(content)
                 .author("zerll9100@gmail.com")
                 .build());
+
         //when
         List<Posts> postsList = postsRepository.findAll();
 
@@ -42,28 +43,6 @@ public class PostsRepositoryTest {
         Posts posts = postsList.get(0);
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
-    }
-
-    @Test
-    public void BaseTimeEntity_등록(){
-        //given
-        LocalDateTime now = LocalDateTime.of(2021, 7,19,0,0);
-        postsRepository.save(Posts.builder()
-                .title("title")
-                .content("content")
-                .author("author")
-                .build());
-
-        //when
-        List<Posts> postsList = postsRepository.findAll();
-
-        //then
-        Posts posts = postsList.get(0);
-
-        System.out.println(">>>>>>>>>>> createDate=" + posts.getCreatedDate() + ", modifiedDate=" + posts.getModifiedDate());
-
-        assertThat(posts.getCreatedDate()).isAfter(now);
-        assertThat(posts.getModifiedDate()).isAfter(now);
     }
 
 }

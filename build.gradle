@@ -6,11 +6,15 @@ plugins {
 
 group 'com.zamar.www'
 version '1.0-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
-sourceCompatibility = '1.8'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
     jcenter()
+}
+
+test{
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -29,10 +33,4 @@ dependencies {
     implementation('com.h2database:h2')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
-
-test {
-    useJUnitPlatform()
 }
