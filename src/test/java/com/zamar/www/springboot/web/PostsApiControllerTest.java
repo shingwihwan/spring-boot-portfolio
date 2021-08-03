@@ -4,6 +4,7 @@ import com.zamar.www.springboot.domain.posts.Posts;
 import com.zamar.www.springboot.domain.posts.PostsRepository;
 import com.zamar.www.springboot.web.dto.PostsSaveRequestDto;
 import com.zamar.www.springboot.web.dto.PostsUpdateRequestDto;
+import javafx.geometry.Pos;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,13 +68,12 @@ public class PostsApiControllerTest {
     }
 
     @Test
-    public void Post_수정된다() throws Exception{
+    public void Posts_수정된다() throws Exception {
         //given
         Posts savePosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
-                .build());
+                .author("author").build());
 
         Long saveId = savePosts.getId();
         String expectedTitle = "title2";
@@ -88,7 +88,7 @@ public class PostsApiControllerTest {
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT,requestEntity,Long.class);
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -96,6 +96,5 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
-
     }
 }
