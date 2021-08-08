@@ -14,13 +14,10 @@ cache:
 
 script: "./gradlew clean build"
 
-before_install:
-  - chmod +x gradlew
-
 before_deploy:
-  - zip -r spring-aws-portfolio *
+  - zip -r spring-boot-portfolio *
   - mdkir -p deploy
-  - mv spring-aws-portfolio.zip delpoy/spring-aws-portfolio.zip
+  - mv spring-boot-portfolio.zip delpoy/spring-boot-portfolio.zip
 
 deploy:
   - provider: s3
