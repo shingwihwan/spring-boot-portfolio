@@ -14,6 +14,9 @@ cache:
 
 script: "./gradlew clean build"
 
+before_install:
+  - chmod +x gradlew
+
 before_deploy:
   - mkdir -p before-deploy
   - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체 압축
