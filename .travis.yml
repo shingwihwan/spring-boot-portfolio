@@ -18,10 +18,9 @@ before_install:
   - chmod +x gradlew # travis-ci build시 permission denied error 해결방법
 
 before_deploy:
-  - mkdir -p before-deploy
-  - cd before-deploy && zip -r before-deploy . -i * # before-deploy로 이동후 전체 압축 기존 * 만했을때 오류가 나서 travis-ci 에서 추천해준 방법
-  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동후 deploy 디렉토리 생성
-  - mv before-deploy/before-deploy.zip deploy/spring-boot-portfolio.zip # deploy로 zip파일 이동
+  - zip -r spring-boot-portfolio *
+  - mkdir -p deploy
+  - mv spring-boot-portfolio.zip deploy/spring-boot-portfolio.zip # deploy로 zip파일 이동
 
 deploy:
   - provider: s3
