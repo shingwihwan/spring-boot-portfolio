@@ -6,7 +6,7 @@ import com.zamar.www.springboot.web.dto.PostsListResponsDto;
 import com.zamar.www.springboot.web.dto.PostsResponseDto;
 import com.zamar.www.springboot.web.dto.PostsSaveRequestDto;
 import com.zamar.www.springboot.web.dto.PostsUpdateRequestDto;
-import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

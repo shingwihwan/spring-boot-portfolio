@@ -15,11 +15,11 @@ cache:
 script: "./gradlew clean build"
 
 before_install:
-  - chmod +x gradlew
+  - chmod +x gradlew # travis-ci build시 permission denied error 해결방법
 
 before_deploy:
   - mkdir -p before-deploy
-  - cd before-deploy && zip -r before-deploy . -i * # before-deploy로 이동후 전체 압축
+  - cd before-deploy && zip -r before-deploy . -i * # before-deploy로 이동후 전체 압축 기존 * 만했을때 오류가 나서 travis-ci 에서 추천해준 방법
   - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동후 deploy 디렉토리 생성
   - mv before-deploy/before-deploy.zip deploy/spring-boot-portfolio.zip # deploy로 zip파일 이동
 
@@ -34,6 +34,16 @@ deploy:
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
 
+  - provider: codedeploy
+      access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+      secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+      bucket: zamar-springboot-build # S3 버킷
+      key: spring-boot-portfolio.zip # 빌드 파일을 압축해서 전달
+      bundle_type: zip
+      application: spring-aws-portfolio # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+      deployment_group: spring-aws-portfolio-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+      region: ap-northeast-2
+      wait-until-deployed: true
 
 # CI 실행 완료시 메일로 알람
 notifications:
