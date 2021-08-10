@@ -1,4 +1,4 @@
-package com.zamar.www.springboot.web.dto;
+package com.zamar.www.springboot.web;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
