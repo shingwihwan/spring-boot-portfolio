@@ -2,7 +2,6 @@ package com.zamar.www.springboot.web;
 
 import com.zamar.www.springboot.config.auth.LoginUser;
 import com.zamar.www.springboot.config.auth.dto.SessionUser;
-import com.zamar.www.springboot.domain.posts.PostsRepository;
 import com.zamar.www.springboot.service.PostsService;
 import com.zamar.www.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +29,26 @@ public class IndexController {
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model){
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
+    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
 
-        return "posts-update";
+        String path;
+
+        if(user != null){
+            PostsResponseDto dto = postsService.findById(id);
+            model.addAttribute("post", dto);
+            path = "posts-update";
+        } else {
+            path = "/";
+        }
+
+        return path;
     }
 
     @GetMapping("/posts/save")
-    public String postsSave(){
+    public String postsSave(Model model, @LoginUser SessionUser user){
+        if(user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "posts-save";
     }
 
