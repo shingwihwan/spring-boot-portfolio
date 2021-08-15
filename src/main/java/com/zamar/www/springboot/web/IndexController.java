@@ -25,7 +25,7 @@ public class IndexController {
         if(user != null){
             model.addAttribute("userName", user.getName());
         }
-        return "index";
+        return "indexTest";
     }
 
     @GetMapping("/posts/update/{id}")
@@ -50,6 +50,12 @@ public class IndexController {
             model.addAttribute("userName", user.getName());
         }
         return "posts-save";
+    }
+
+    @GetMapping("/post")
+    public String post(Model model) {
+        model.addAttribute("posts", postsService.findAllDesc());
+        return "post";
     }
 
 }
